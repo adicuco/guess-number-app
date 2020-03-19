@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Card from "../components/Card";
+import Button from "../components/Button";
 
 const Container = styled.View`
   flex: 1;
@@ -24,8 +25,6 @@ const ButtonContainer = styled.View`
   justify-content: space-between;
   padding-horizontal: 15px;
 `;
-
-const Button = styled.Button``;
 
 const StartGameScreen = () => {
   return (
