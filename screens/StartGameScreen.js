@@ -38,10 +38,10 @@ const ConfirmCard = styled(Card)`
   max-width: 60%;
 `;
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ onStartGame }) => {
   const [inputValue, setInputValue] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const [number, setNumber] = useState(null);
+  const [number, setNumber] = useState();
 
   const handleInputChange = text => {
     setInputValue(text.replace(/[^0-9]/g, ""));
@@ -74,6 +74,10 @@ const StartGameScreen = () => {
     Keyboard.dismiss();
   };
 
+  const handleStartGame = () => {
+    onStartGame(number);
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Container>
@@ -99,7 +103,7 @@ const StartGameScreen = () => {
           <ConfirmCard>
             <Text>You selected</Text>
             <NumberContainer number={number} />
-            <Button title="START GAME" width={120} />
+            <Button title="START GAME" width={120} onPress={handleStartGame} />
           </ConfirmCard>
         )}
       </Container>
