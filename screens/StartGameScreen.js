@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { TouchableWithoutFeedback, Keyboard } from "react-native";
 
 import Card from "../components/Card";
 import Button from "../components/Button";
+import Input from "../components/Input";
 
 const Container = styled.View`
   flex: 1;
@@ -17,7 +19,10 @@ const Title = styled.Text`
 
 const Text = styled.Text``;
 
-const Input = styled.TextInput``;
+const NumberInput = styled(Input)`
+  width: 50px;
+  text-align: center;
+`;
 
 const ButtonContainer = styled.View`
   flex-direction: row;
@@ -27,20 +32,36 @@ const ButtonContainer = styled.View`
 `;
 
 const StartGameScreen = () => {
+  const [number, setNumber] = useState("");
+
+  const handleNumberChange = text => {
+    setNumber(text.replace(/[^0-9]/g, ""));
+  };
+
   return (
-    <Container>
-      <Title>Start a New Game!</Title>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <Container>
+        <Title>Start a New Game!</Title>
 
-      <Card>
-        <Text>Select a Number</Text>
-        <Input />
+        <Card>
+          <Text>Select a Number</Text>
+          <NumberInput
+            blurOnSubmit
+            keyboardType="number-pad"
+            maxLength={2}
+            autoCorrect={false}
+            autoCapitalize="none"
+            value={number}
+            onTextChange={handleNumberChange}
+          />
 
-        <ButtonContainer>
-          <Button title="Reset" secondary />
-          <Button title="Confirm" />
-        </ButtonContainer>
-      </Card>
-    </Container>
+          <ButtonContainer>
+            <Button title="Reset" secondary />
+            <Button title="Confirm" />
+          </ButtonContainer>
+        </Card>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 };
 
