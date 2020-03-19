@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { Alert } from "react-native";
 
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import Button from "../components/Button";
 
-import utils from "../utils";
+import { generateRandomBetween } from "../utils";
 
 const Container = styled.View`
   flex: 1;
@@ -22,9 +23,37 @@ const ButtonContainer = styled(Card)`
 const Text = styled.Text``;
 
 const GameScreen = ({ userNumber }) => {
+  const lowGuess = useRef(1);
+  const highGuess = useRef(100);
+
   const [guess, setGuess] = useState(
-    utils.generateRandomBetween(1, 100, userNumber)
+    generateRandomBetween(lowGuess.current, highGuess.current, userNumber)
   );
+
+  const handleNewGuess = (isLower = false) => {
+    if ((isLower && guess < userNumber) || (!isLower && guess > userNumber)) {
+      Alert.alert("Don't lie!", "You know that this is wrong...", [
+        {
+          text: "Sorry!",
+          style: "cancel"
+        }
+      ]);
+      return;
+    }
+
+    if (isLower) {
+      highGuess.current = guess;
+    } else {
+      lowGuess.current = guess;
+    }
+
+    const newGuess = generateRandomBetween(
+      lowGuess.current,
+      highGuess.current,
+      guess
+    );
+    setGuess(newGuess);
+  };
 
   return (
     <Container>
@@ -32,8 +61,8 @@ const GameScreen = ({ userNumber }) => {
       <NumberContainer number={guess} />
 
       <ButtonContainer>
-        <Button title="Lower" />
-        <Button title="Greater" />
+        <Button title="Lower" onPress={() => handleNewGuess(true)} />
+        <Button title="Greater" onPress={() => handleNewGuess()} />
       </ButtonContainer>
     </Container>
   );
