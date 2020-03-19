@@ -5,14 +5,15 @@ const Container = styled.View`
   width: 100%;
   height: 90px;
   padding-top: 36px;
-  background: #ee6c4d;
+  background: ${({ theme }) => theme.primary};
   align-items: center;
   justify-content: center;
 `;
 
 const Title = styled.Text`
-  color: black;
+  color: #fff;
   font-size: 18px;
+  font-weight: bold;
 `;
 
 const Header = ({ title }) => {

@@ -1,8 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import Header from "./components/Header";
 import StartGameScreen from "./screens/StartGameScreen";
+
+import theme from "./constants/theme";
 
 const Container = styled.View`
   flex: 1;
@@ -10,9 +12,11 @@ const Container = styled.View`
 
 export default function App() {
   return (
-    <Container>
-      <Header title="Guess a Number" />
-      <StartGameScreen />
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Header title="Guess a Number" />
+        <StartGameScreen />
+      </Container>
+    </ThemeProvider>
   );
 }

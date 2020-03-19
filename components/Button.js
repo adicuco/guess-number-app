@@ -5,7 +5,12 @@ const Container = styled.TouchableOpacity`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
   border-radius: 10px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ theme, backgroundColor, secondary }) =>
+    backgroundColor
+      ? backgroundColor
+      : secondary
+      ? theme.secondary
+      : theme.primary};
   justify-content: center;
   align-items: center;
 `;
@@ -22,7 +27,8 @@ const Button = ({
   textColor,
   backgroundColor,
   width,
-  height
+  height,
+  secondary
 }) => (
   <Container
     backgroundColor={backgroundColor}
@@ -30,6 +36,7 @@ const Button = ({
     onPress={onPress}
     width={width}
     height={height}
+    secondary={secondary}
   >
     <Title textColor={textColor}>{title}</Title>
   </Container>
@@ -38,10 +45,11 @@ const Button = ({
 Button.defaultProps = {
   title: "Button",
   onPress: () => {},
-  backgroundColor: "#17BEBB",
+  backgroundColor: null,
   textColor: "#fff",
   width: 100,
-  height: 40
+  height: 40,
+  secondary: false
 };
 
 export default Button;

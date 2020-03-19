@@ -36,7 +36,7 @@ const StartGameScreen = () => {
         <Input />
 
         <ButtonContainer>
-          <Button title="Reset" />
+          <Button title="Reset" secondary />
           <Button title="Confirm" />
         </ButtonContainer>
       </Card>
