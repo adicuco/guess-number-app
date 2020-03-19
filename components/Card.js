@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = styled.View`
-  width: ${({ width }) => width}px;
-  max-width: ${({ maxWidth }) => maxWidth}%;
+  width: 300px;
+  max-width: 80%;
   align-items: center;
   shadow-color: #000;
   shadow-offset: 0px 1px;
@@ -14,10 +14,5 @@ const Card = styled.View`
   border-radius: 10px;
   padding: 20px;
 `;
-
-Card.defaultProps = {
-  width: 300,
-  maxWidth: 80
-};
 
 export default Card;

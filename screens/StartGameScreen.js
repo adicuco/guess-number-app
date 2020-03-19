@@ -5,6 +5,7 @@ import { TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 
 const Container = styled.View`
   flex: 1;
@@ -29,6 +30,12 @@ const ButtonContainer = styled.View`
   width: 100%;
   justify-content: space-between;
   padding-horizontal: 15px;
+`;
+
+const ConfirmCard = styled(Card)`
+  margin-top: 20px;
+  width: 200px;
+  max-width: 60%;
 `;
 
 const StartGameScreen = () => {
@@ -64,6 +71,7 @@ const StartGameScreen = () => {
     setIsConfirmed(true);
     setNumber(chosenNumber);
     setInputValue("");
+    Keyboard.dismiss();
   };
 
   return (
@@ -87,7 +95,13 @@ const StartGameScreen = () => {
           </ButtonContainer>
         </Card>
 
-        {isConfirmed && <Text>{`You chose: ${number}`}</Text>}
+        {isConfirmed && (
+          <ConfirmCard>
+            <Text>You selected</Text>
+            <NumberContainer number={number} />
+            <Button title="START GAME" width={120} />
+          </ConfirmCard>
+        )}
       </Container>
     </TouchableWithoutFeedback>
   );
