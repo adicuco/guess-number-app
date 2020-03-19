@@ -38,6 +38,10 @@ const StartGameScreen = () => {
     setNumber(text.replace(/[^0-9]/g, ""));
   };
 
+  const handleReset = () => {
+    setNumber("");
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <Container>
@@ -49,14 +53,12 @@ const StartGameScreen = () => {
             blurOnSubmit
             keyboardType="number-pad"
             maxLength={2}
-            autoCorrect={false}
-            autoCapitalize="none"
             value={number}
-            onTextChange={handleNumberChange}
+            onChangeText={handleNumberChange}
           />
 
           <ButtonContainer>
-            <Button title="Reset" secondary />
+            <Button title="Reset" secondary onPress={handleReset} />
             <Button title="Confirm" />
           </ButtonContainer>
         </Card>
