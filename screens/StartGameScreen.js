@@ -32,14 +32,27 @@ const ButtonContainer = styled.View`
 `;
 
 const StartGameScreen = () => {
-  const [number, setNumber] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [number, setNumber] = useState(null);
 
-  const handleNumberChange = text => {
-    setNumber(text.replace(/[^0-9]/g, ""));
+  const handleInputChange = text => {
+    setInputValue(text.replace(/[^0-9]/g, ""));
   };
 
   const handleReset = () => {
-    setNumber("");
+    setInputValue("");
+    setIsConfirmed(false);
+  };
+
+  const handleConfirm = () => {
+    const chosenNumber = parseInt(inputValue);
+    if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+      return;
+    }
+    setIsConfirmed(true);
+    setNumber(chosenNumber);
+    setInputValue("");
   };
 
   return (
@@ -53,15 +66,17 @@ const StartGameScreen = () => {
             blurOnSubmit
             keyboardType="number-pad"
             maxLength={2}
-            value={number}
-            onChangeText={handleNumberChange}
+            value={inputValue}
+            onChangeText={handleInputChange}
           />
 
           <ButtonContainer>
             <Button title="Reset" secondary onPress={handleReset} />
-            <Button title="Confirm" />
+            <Button title="Confirm" onPress={handleConfirm} />
           </ButtonContainer>
         </Card>
+
+        {isConfirmed && <Text>{`You chose: ${number}`}</Text>}
       </Container>
     </TouchableWithoutFeedback>
   );
